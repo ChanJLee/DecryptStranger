@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.theOldMen.Activity" >
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <!-- 往SDCard写入数据权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--  从SDCard读取数据权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 全局对话框权限 -->
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <!-- 来电消音 -->
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        android:name="com.theOldMen.app.DemoApplication">
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="nVFEBMkGk6quE0lAFjwdmHRm" />
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+        </service>
+
+        <activity
+            android:name="com.theOldMen.Activity.TheOldMenSplashActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.theOldMen.Activity.TheOldMenOpenDoorSplashActivity"
+                  android:theme="@android:style/Theme.Light.NoTitleBar"/>
+        <activity android:name="com.theOldMen.Activity.LoginActivity"
+                  android:theme="@android:style/Theme.Light.NoTitleBar"/>
+        <activity android:name="com.theOldMen.Activity.RegisterPhoneActivity"
+                  android:theme="@android:style/Theme.Light.NoTitleBar"/>
+        <activity android:name="com.theOldMen.Activity.MainActivity"
+                    android:theme= "@style/MainTheme"/>
+        <activity android:name="com.theOldMen.zone.TheOldMenUserZoneActivity"/>
+        <activity android:name="com.theOldMen.zone.TheOldMenPushPhoto"/>
+        <activity android:name="com.theOldMen.chat.TheOldMenChatMainActivity"/>
+        <activity android:name="com.theOldMen.chat.TheOldMenAlterDialog"/>
+        <activity android:name="com.theOldMen.chat.ImageGridActivity"/>
+        <activity android:name="com.theOldMen.chat.RecorderVideoActivity"/>
+        <activity android:name="com.theOldMen.chat.BaiduMapActivity"/>
+        <activity android:name="com.theOldMen.chat.BaiduMapPreviewActivity"/>
+        <activity android:name="com.theOldMen.ShackActivity.TheOldMenShakeActivity"/>
+        <activity android:name="com.theOldMen.boxGame.BoxGameMainActivity"/>
+        <activity android:name="com.theOldMen.handWrite.HandWriteActivity"></activity>
+        <activity android:name="com.theOldMen.startup.HowToUseActivity"/>
+
+        <!--android:theme="@android:style/Theme.Light.NoTitleBar"/>-->
+
+        <service android:name="com.theOldMen.service.XXService" />
+
+        <receiver android:name="com.theOldMen.broadcast.XXBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="com.theOldMen.db.ChatProvider"
+            android:authorities="com.theOldMen.provider.Chats" />
+        <provider
+            android:name="com.theOldMen.db.RosterProvider"
+            android:authorities="com.theOldMen.provider.Roster" />
+
+    </application>
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="false"
+        android:resizeable="true"
+        android:smallScreens="true" />
+
+</manifest>

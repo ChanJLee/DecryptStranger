@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+    <com.theOldMen.CircleImage.CircleImageView
+        android:id="@+id/login_image"
+        android:layout_height="150dip"
+        android:layout_width="150dip"
+        android:src="@drawable/avatar"
+        android:layout_marginTop="30dip"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/login_image"
+        android:id="@+id/login_up">
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/account"
+            android:layout_height="65dp"
+            android:layout_width="match_parent"
+            android:padding="5dp"
+            android:inputType="text"
+            android:hint="@string/et_account_hint"
+            android:background="@drawable/login_et_bg"
+            android:focusableInTouchMode="true"
+            app:met_baseColor="#ff544e48"
+            app:met_floatingLabel="normal"
+            app:met_floatingLabelText="账号"
+            app:met_floatingLabelTextColor="@color/blue"
+            app:met_floatingLabelTextSize="14sp"
+            app:met_clearButton="true"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical|left"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/password"
+            android:layout_height="65dp"
+            android:layout_width="match_parent"
+            android:padding="5dp"
+            android:inputType="textPassword"
+            android:hint="@string/et_password_hint"
+            android:background="@drawable/login_et_bg"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_below="@+id/account"
+            android:layout_marginTop="5dp"
+            android:focusableInTouchMode="true"
+            app:met_floatingLabelTextColor="#ff4013ff"
+            app:met_floatingLabelTextSize="14sp"
+            app:met_clearButton="true"
+            app:met_baseColor="#ff544e48"
+            app:met_floatingLabel="normal"
+            app:met_floatingLabelText="密码"
+            android:gravity="center_vertical|left"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout"
+        android:layout_below="@+id/login_up"
+        android:layout_marginTop="10dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <com.gc.materialdesign.views.CheckBox
+                android:id="@+id/auto_save_password"
+                android:layout_width="wrap_content"
+                android:layout_height="40.0dip"
+                android:layout_marginLeft="40dp"
+                materialdesign:check="true"
+                android:textColor="@color/black" />
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/auto_save_password"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <com.gc.materialdesign.views.CheckBox
+                android:id="@+id/hide_login"
+                android:layout_width="wrap_content"
+                android:layout_height="40.0dip"
+                android:layout_marginLeft="40dp"
+                android:checked="false" />
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/hide_login"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.dd.CircularProgressButton
+        android:id="@+id/login"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:text="@string/login"
+        android:background="@drawable/login_btn"
+        android:textColor="@color/cpb_white"
+        android:textSize="18sp"
+        app:cpb_textComplete="登陆成功"
+        app:cpb_textError="Loading..."
+        app:cpb_textIdle="登陆"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/linearLayout"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/register"
+        android:text="注册"
+        android:textColor="#1e88e5"
+        android:background="#fffbffff"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp"/>
+
+</RelativeLayout>

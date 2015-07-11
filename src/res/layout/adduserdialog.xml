@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/add_friend_title"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:text="@string/add_friend_title" />
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:id="@+id/account_number"
+        android:hint="@string/account_number_hint" />
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:hint="@string/nickname_hint"
+        android:id="@+id/nickname" />
+    <com.theOldMen.view.BetterSpinner
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/better_spinner" />
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:hint="新分组名称"
+        android:visibility="gone"
+        android:id="@+id/new_group_name" />
+    <TextView
+        android:id="@+id/errorFieldView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ff0000"
+        android:textSize="15dp"
+        android:visibility="gone" />
+</LinearLayout>

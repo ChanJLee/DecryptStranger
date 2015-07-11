@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/whatsnew_page01">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/m_htuShowRelativeLayout">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="35sp"
+            android:layout_marginTop="80dp"
+            android:id="@+id/m_htuMessageTextView"
+            android:text="朋友圈丰富你的交友体验"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/m_htuMessageTextView"
+            android:layout_marginTop="70dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/m_htuImageView"
+            android:src="@drawable/demo" />
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/m_htuPointsContainer"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/m_htuStartButton"
+        android:text="开始吧"
+        android:textColor="#fff"
+        android:background="@null"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/m_htuPointsContainer"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/page_indicator_focused"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:src="@drawable/page_indicator_unfocused"
+            android:layout_marginLeft="5dp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/page_indicator_unfocused"
+            android:layout_marginLeft="5dp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/page_indicator_unfocused"
+            android:layout_marginLeft="5dp"/>
+    </LinearLayout>
+
+</RelativeLayout>

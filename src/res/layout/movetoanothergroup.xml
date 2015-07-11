@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp" >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:focusable="true"
+        android:text="@string/MoveRosterEntryToGroupDialog_summ"
+        android:textColor="@color/thirty_transparent_black" />
+    <com.theOldMen.view.BetterSpinner
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/moveUserSpinner"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="新建分组"
+        android:id="@+id/moveToNewGroup"
+        android:textColor="@color/thirty_transparent_black"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/errorTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ff0000"
+        android:textSize="15dp"
+        android:visibility="gone" />
+</LinearLayout>

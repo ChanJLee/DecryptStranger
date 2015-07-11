@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:materialdesign="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:tag="back"
+        android:id="@+id/back"
+        android:gravity="right|bottom"
+        android:orientation="horizontal"
+        android:color="#fff"
+        >
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"></View>
+        
+        <com.gc.materialdesign.views.ButtonFloat
+            android:id="@+id/m_mkFriendButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="24dp"
+            android:background="#1E88E5"
+            materialdesign:iconDrawable="@drawable/ic_action_new" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/front"
+        android:tag="front"
+        android:background="#ffffff">
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="8dp" android:paddingTop="8dp">
+
+                    <TextView
+                        android:id="@+id/m_frontUserNameTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="16dp"
+                        android:textColor="#ff8678ff"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:background="#cccccc" />
+            </FrameLayout>
+
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                card_view:cardCornerRadius="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical">
+
+                    <com.theOldMen.widget.SquaredFrameLayout
+                        android:id="@+id/vImageRoot"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2">
+
+                        <ImageView
+                            android:id="@+id/m_frontUserImageView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:layout_margin="20dp"/>
+                    </com.theOldMen.widget.SquaredFrameLayout>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:textSize="15sp"
+                        android:textColor="#ff080821"
+                        android:id="@+id/m_frontUserInfoTextView"
+                        android:layout_alignParentBottom="true"
+                        android:layout_weight="1">
+                    </TextView>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_gravity="bottom"
+                android:background="#cccccc" />
+        </LinearLayout>
+</FrameLayout>

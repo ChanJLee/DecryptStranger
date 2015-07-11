@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <ImageButton
+        android:id="@+id/cameraButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_camera"
+        android:layout_above="@+id/openContent"
+        android:layout_toLeftOf="@+id/imageview_preview"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <Button
+        android:id="@+id/openContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打开相册"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <ImageView
+        android:id="@+id/imageview_preview"
+        android:layout_width="188dp"
+        android:layout_height="208dp"
+        android:layout_gravity="right"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/openContent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/openContent"/>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/login_btn"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:text="@string/btn_next"
+        android:layout_gravity="center"
+        android:layout_marginTop="83dp"
+        android:layout_below="@+id/openContent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/register_setPhoto"
+        android:id="@+id/textView"
+        android:layout_marginBottom="38dp"
+        android:layout_above="@+id/cameraButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+</RelativeLayout>

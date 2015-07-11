@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff">
+
+    <!-- 最上面的部分 -->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@color/top_bar_normal_bg"
+        android:id="@+id/m_chatTop"
+        android:layout_alignParentTop="true">
+
+        <include layout="@layout/commom_back_btn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="20sp"
+            android:textColor="#ffffffff"
+            android:id="@+id/m_friendNamePreviewTextView"/>
+    </RelativeLayout>
+
+
+    <!-- 中间的聊天部分 -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/m_chatTop"
+        android:layout_above="@+id/m_chatBottom"
+        android:id="@+id/m_chatBody">
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:cacheColorHint="#00000000"
+            android:divider="@null"
+
+            android:dividerHeight="5dp"
+            android:listSelector="#00000000"
+            android:scrollbarStyle="outsideOverlay"
+            android:transcriptMode="normal" />
+
+        <!-- 录音时显示的内容 -->
+        <RelativeLayout
+            android:id="@+id/recording_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/recording_hint_bg"
+            android:padding="10dp"
+            android:visibility="invisible" >
+
+            <ImageView
+                android:id="@+id/mic_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/record_animate_01" />
+
+            <TextView
+                android:id="@+id/recording_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mic_image"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:padding="2dp"
+                android:text="手指上滑 取消发送"
+                android:textSize="10sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <!-- 最下面的部分 -->
+    <LinearLayout android:id="@+id/m_chatBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:id="@+id/rl_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="4dp" >
+
+            <!-- 切换模式 -->
+            <Button
+                android:id="@+id/m_setModeVoiceButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/icon_chat_voice"
+                android:visibility="visible"/>
+
+            <Button
+                android:id="@+id/m_setModeKeyBoardButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/chatting_setmode_keyboard_btn"
+                android:visibility="gone"/>
+
+            <!-- 按住说话的大按钮 -->
+            <LinearLayout
+                android:id="@+id/btn_press_to_speak"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/chat_press_speak_btn"
+                android:gravity="center"
+                android:visibility="gone" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="按住说话"
+                    android:textColor="#666666"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/edittext_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_weight="1"
+                android:gravity="bottom">
+
+                <com.theOldMen.widget.TheOldMenTextEdit
+                    android:id="@+id/et_sendmessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="35dip"
+                    android:background="@null"
+                    android:maxLines="3"
+                    android:minHeight="40dp"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="1dp"
+                    android:paddingRight="1dp"
+                    android:paddingTop="3dp"
+                    android:textSize="16sp"
+                    android:cursorVisible="true"/>
+
+                <ImageView
+                    android:id="@+id/iv_emoticons_normal"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_margin="1dip"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_chat_emoji_normal"
+                    android:visibility="visible"
+                    />
+
+                <ImageView
+                    android:id="@+id/iv_emoticons_checked"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_margin="1dip"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_chat_emoji_checked"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+
+            <Button
+                android:id="@+id/m_chatMoreButton"
+                android:layout_width="32dip"
+                android:layout_height="32dip"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/icon_chattype_add"/>
+
+            <Button
+                android:id="@+id/btn_send"
+                android:layout_width="42dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="4dp"
+                android:background="@drawable/btn_register_bg"
+                android:onClick="onClick"
+                android:text="发送"
+                android:textColor="#fff"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/more"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- 表情图片 -->
+            <LinearLayout
+                android:id="@+id/ll_face_container"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="vertical"
+                android:visibility="visible" >
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/vPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- 图片，表情，名片等按钮 -->
+            <LinearLayout
+                android:id="@+id/ll_btn_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4" >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <RelativeLayout
+                            android:layout_width="64dp"
+                            android:layout_height="64dp" >
+
+                            <ImageView
+                                android:id="@+id/btn_take_picture"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/ic_camera_alt_grey600_48dp"
+                                android:clickable="true"
+                                android:scaleType="fitCenter" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="拍照"
+                            android:textColor="#727171" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <RelativeLayout
+                            android:layout_width="64dp"
+                            android:layout_height="64dp" >
+
+                            <ImageView
+                                android:id="@+id/btn_picture"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/ic_insert_photo_grey600_48dp"
+                                android:clickable="true"
+                                android:scaleType="fitCenter" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="图片"
+                            android:textColor="#727171" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <RelativeLayout
+                            android:layout_width="64dp"
+                            android:layout_height="64dp" >
+
+                            <ImageView
+                                android:id="@+id/btn_location"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_centerInParent="true"
+                                android:clickable="true"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/ic_room_grey600_48dp" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="位置"
+                            android:textColor="#727171" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <RelativeLayout
+                            android:layout_width="64dp"
+                            android:layout_height="64dp" >
+
+                            <ImageView
+                                android:id="@+id/btn_video"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_centerInParent="true"
+                                android:clickable="true"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/ic_remove_red_eye_grey600_48dp" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="小视频"
+                            android:textColor="#727171" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4" >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <RelativeLayout
+                            android:layout_width="64dp"
+                            android:layout_height="64dp" >
+
+                            <ImageView
+                                android:id="@+id/btn_file"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/ic_folder_open_grey600_48dp"
+                                android:clickable="true"
+                                android:scaleType="fitCenter" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="文件"
+                            android:textColor="#727171" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/container_voice_call"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <RelativeLayout
+                            android:layout_width="64dp"
+                            android:layout_height="64dp" >
+
+                            <ImageView
+                                android:id="@+id/btn_voice_call"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/ic_call_grey600_48dp"
+                                android:clickable="true"
+                                android:scaleType="fitCenter" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="语音通话"
+                            android:textColor="#727171" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/container_paint"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical" >
+
+                        <RelativeLayout
+                            android:layout_width="64dp"
+                            android:layout_height="64dp" >
+
+                            <ImageView
+                                android:id="@+id/m_chatPaintImageView"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/ic_format_paint_grey600_48dp"
+                                android:clickable="true"
+                                android:scaleType="fitCenter" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="涂鸦"
+                            android:textColor="#727171" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <!-- ========================================================================================================== -->
+
+</RelativeLayout>

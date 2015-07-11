@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/edit_dialog_layout">
+    <TextView
+        android:id="@+id/text"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="@string/rename"
+        android:gravity="center"
+        android:paddingTop="10dip"
+        android:paddingBottom="20dip"
+        android:textSize="16sp" />
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/new_group_name"
+        android:inputType="textMultiLine"
+        android:textSize="16sp"
+        android:paddingTop="10dip"
+        android:paddingBottom="20dip"
+        />
+    <TextView
+        android:id="@+id/errorTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ff0000"
+        android:textSize="15dp"
+        android:visibility="gone" />
+</LinearLayout>

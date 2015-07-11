@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:background="@android:color/white"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="@color/gray"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_top">
+
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+            <at.markushi.ui.ActionView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:id="@+id/title_bar_left_menu"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="10dp"
+                app:av_color="@android:color/white"
+                app:av_action="drawer"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/commentField"
+                android:layout_gravity="center">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/status_online"
+                    android:visibility="gone"
+                    android:id="@+id/titleStatus" />
+
+                <ProgressBar
+                    android:id="@+id/titleProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:indeterminateDrawable="@drawable/common_loading4"
+                    android:layout_marginTop="4.0dip"
+                    android:maxHeight="16dip"
+                    android:maxWidth="16dip"
+                    android:minHeight="16dip"
+                    android:minWidth="16dip"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="7dp"
+                    android:text="@string/contact_menu"
+                    android:id="@+id/comment_title"
+                    android:textSize="18dip"
+                    android:textColor="#FFFFFF"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+            <Button
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="@drawable/titlebar_menu_selector"
+                android:id="@+id/title_bar_right_menu"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="10dp"/>
+        </FrameLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="#ebebeb"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/main_fragment">
+    </FrameLayout>
+
+</LinearLayout>

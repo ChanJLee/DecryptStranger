@@ -1,0 +1,15 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_gravity="top"
+    android:background="@drawable/user_add_top_bg"
+    >
+    <ExpandableListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@android:style/Widget.ExpandableListView"
+        android:id="@+id/expandable_container"
+        android:scrollbars="none"/>
+
+</RelativeLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialogRoot"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/LDialogs_transparent" >
+    <TextView
+        android:id="@+id/dialog_behind_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="24dp"
+        android:gravity="center_vertical"
+        android:text="title"
+        android:textSize="22sp"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"/>
+
+    <LinearLayout
+        android:id="@+id/content_behind_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_behind_title"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="24dp" >
+
+        <TextView
+            android:id="@+id/dialog_behind_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:visibility="gone" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:paddingBottom="16dp"
+        android:paddingTop="24dp"
+        android:layout_below="@id/content_behind_view" >
+        <Button
+            android:id="@+id/dialog_positiveButton"
+            android:layout_width="88dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="@drawable/button_selector2"
+            android:textAllCaps="true"
+            android:text="OK"
+            android:textSize="14sp"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+           />
+
+        <Button
+            android:id="@+id/dialog_negativeButton"
+            android:layout_width="88dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="@drawable/button_selector2"
+            android:textAllCaps="true"
+            android:text="CANCEL"
+            android:textSize="14sp"
+            android:visibility="gone"
+            android:layout_toLeftOf="@id/dialog_positiveButton" />
+    </RelativeLayout>
+
+</RelativeLayout>
