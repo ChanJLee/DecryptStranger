@@ -26,9 +26,9 @@
 	 <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="nVFEBMkGk6quE0lAFjwdmHRm" />
-
 	加入你的key就行了
 	目前x86 cpu不支持
+	
   2:代码中有很多ip需要你自己设置自己服务器ip
    
   
