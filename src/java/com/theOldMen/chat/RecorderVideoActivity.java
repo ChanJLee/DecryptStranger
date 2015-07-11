@@ -39,7 +39,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.easemob.util.EMLog;
 import com.gc.materialdesign.views.ProgressBarDeterminate;
 import com.theOldMen.Activity.R;
 import com.theOldMen.util.Utils;
@@ -534,7 +533,7 @@ public class RecorderVideoActivity extends Activity implements
 
 	@Override
 	public void onError(MediaRecorder mr, int what, int extra) {
-		EMLog.e("video", "recording onError:");
+
 		stopRecording();
 		Toast.makeText(this,
 				"Recording error has occurred. Stopping the recording",
