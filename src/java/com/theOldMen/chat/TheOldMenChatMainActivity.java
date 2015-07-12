@@ -126,7 +126,6 @@ public class TheOldMenChatMainActivity extends Activity implements IConnectionSt
     private View m_more                                 = null;
     private List<String> m_listRes                      = null;
     private PowerManager.WakeLock m_wakeLock            = null;
-    public String m_playMsgId                           = null;
     private InputMethodManager m_manager                = null;
     private SpannableString m_span                      = new SpannableString(" ");
     private AnimationDrawable m_animationDrawable       = null;

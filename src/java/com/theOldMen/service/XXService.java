@@ -269,10 +269,12 @@ public class XXService extends BaseService implements XXBroadcastReceiver.EventH
     }
 
     public VCard getUserVCard(String userId) {
+
         if (NetUtil.getNetworkState(this) == NetUtil.NETWORN_NONE) {
             connectionFailed(NETWORK_ERROR);
             return null;
         }
+
         try {
             if (isAuthenticated()) {
                 VCard vCard = mSmackable.getUserVcard(userId);
@@ -280,9 +282,7 @@ public class XXService extends BaseService implements XXBroadcastReceiver.EventH
                     return vCard;
                 return new VCard();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {}
         return null;
     }
 

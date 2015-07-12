@@ -102,7 +102,7 @@ public class BaseLDialog extends Dialog {
     //帮助构建dialog的辅助类
     public static class Builder {
         private final Context m_context;
-        Typeface m_typeface; //字体，默认为Roboto-Medium.ttf
+     //   Typeface m_typeface; //字体，默认为Roboto-Medium.ttf
         private View m_behindView;
         private String m_dialogTitle;
         private String m_contentText;
@@ -111,10 +111,12 @@ public class BaseLDialog extends Dialog {
         private int m_titleSize, m_contentSize, m_buttonSize;
         private Button m_positiveButton, m_negativeButton;
         private boolean m_isMotai = false; //是否用模态
+
         public Builder(Context context) {
             m_context = context;
-            m_typeface = Typeface.createFromAsset(this.m_context.getResources()
-                    .getAssets(), "Roboto-Medium.ttf");
+
+    //        m_typeface = Typeface.createFromAsset(this.m_context.getResources()
+    //                .getAssets(), "Roboto-Medium.ttf");
         }
 
         //设置dialog是否为模态
@@ -257,6 +259,7 @@ public class BaseLDialog extends Dialog {
 
         }
 
+        @SuppressWarnings("deprecated")
         public BaseLDialog create() {
             LayoutInflater inflater = (LayoutInflater)
                     m_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

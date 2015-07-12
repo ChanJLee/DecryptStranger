@@ -408,29 +408,40 @@ public class TheOldMenUserZoneActivity extends ActionBarActivity {
     };
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
+    private static final short s_getDataFinishTag = 0x0521;
+
     private Handler m_getDataHander = new Handler() {
         @Override
         public void handleMessage(Message msg) {
 
-           if(msg.what == s_getDataTag){
+            if (msg.what == s_getDataTag) {
 
-               dismissProgressDialog();
+                final String xml = (String) msg.obj;
 
-               String xml = (String)msg.obj;
+                if (!TextUtils.isEmpty(xml)) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                TheOldMenXmlParser.xmlToConfig(xml, m_data);
 
-               try {
-                   if(!TextUtils.isEmpty(xml))
-                    TheOldMenXmlParser.xmlToConfig(xml,m_data);
-                   else Toast.makeText(TheOldMenUserZoneActivity.this,"没有获取到数据",Toast.LENGTH_SHORT).show();
-               }
-               catch (JDOMException e) {
-                   e.printStackTrace();
-               } catch (IOException e) {
-                   e.printStackTrace();
-               }
+                                Message message = m_getDataHander.obtainMessage();
+                                message.what = s_getDataFinishTag;
 
-               m_adapter.notifyDataSetChanged();
-           }
+                                m_getDataHander.sendMessage(message);
+                            } catch (Exception e) {
+                            }
+                        }
+                    }).start();
+                } else {
+                    dismissProgressDialog();
+                    Toast.makeText(TheOldMenUserZoneActivity.this,
+                            "没有获取到数据", Toast.LENGTH_SHORT).show();
+                }
+            } else if (msg.what == s_getDataFinishTag) {
+                dismissProgressDialog();
+                m_adapter.notifyDataSetChanged();
+            }
         }
     };
 

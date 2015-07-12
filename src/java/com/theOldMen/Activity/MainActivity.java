@@ -50,6 +50,8 @@ public class MainActivity
         implements View.OnClickListener,
         IConnectionStatusCallback,
         FragmentCallback {
+
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private XXService mXxService;
     private ResideMenu resideMenu;//滑动菜单控件

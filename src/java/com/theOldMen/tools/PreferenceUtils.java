@@ -6,6 +6,7 @@ import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
 public class PreferenceUtils {
+
 	public static String getPrefString(Context context, String key,
 			final String defaultValue) {
 		final SharedPreferences settings = PreferenceManager

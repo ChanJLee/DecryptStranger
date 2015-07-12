@@ -65,11 +65,8 @@ public class ContactFragment
     private ContentObserver mRosterObserver = new RosterObserver();
     private View m_errorNetTip;
     private TextView m_title;
-
     private FragmentCallback m_callback;
     private Handler myHandler = new Handler();
-
-    private static final String TAG = "ContactFragment";
 
 
     @Override
@@ -171,7 +168,6 @@ public class ContactFragment
                 L.i(user.getUserId());
                 Intent i = TheOldMenChatMainActivity.getChatIntent(getActivity(), user.getUserId(), fromId, user.getAlias(), fromId,
                         MyUtil.getUserAvatarPath(user.getUserId()), MyUtil.getUserAvatarPath(fromId));
-//                Intent i = new Intent(getActivity(),TheOldMenChatMainActivity.class);
                 startActivity(i);
                 return true;
             }
@@ -199,9 +195,7 @@ public class ContactFragment
 
     @Override
     public void connectingChanged() {
-//        m_title.setText(R.string.login_prompt_msg);
-//        mTitleProgressBar.setVisibility(View.VISIBLE);
-//        m_titleStatus.setVisibility(View.GONE);
+
         myHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -213,8 +207,7 @@ public class ContactFragment
 
     @Override
     public void disconnectedChanged() {
-//        mTitleNameView.setText(R.string.login_prompt_no);
-//        mTitleProgressBar.setVisibility(View.GONE);
+
         myHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -246,14 +239,16 @@ public class ContactFragment
     }
 
     private void handleCommentField(LinearLayout linearLayout) {
+
         if (linearLayout == null) return;
+
         m_title = (TextView) linearLayout.findViewById(R.id.comment_title);
         m_titleStatus = (ImageView) linearLayout.findViewById(R.id.titleStatus);
-//        m_title.setOnClickListener(this);
     }
 
 
     private boolean isConnected() {
+
         //检测是否连接的方法
         return m_callback.isConnected();
     }
@@ -479,20 +474,20 @@ public class ContactFragment
                         //在这里对新建的分组的组名进行检查
                         if (newGroup.getVisibility() == View.VISIBLE &&
                                 TextUtils.isEmpty(newGroup.getText().toString())) {
-                            Log.d(TAG, "数据不合法");
+                          //  Log.d(TAG, "数据不合法");
                             try {
                                 Field field = dialog.getClass()
                                         .getSuperclass().getDeclaredField("mShowing");
                                 field.setAccessible(true);
                                 field.set(dialog, false);
                             } catch (Exception e) {
-                                Log.d(TAG, "异常");
+                             //   Log.d(TAG, "异常");
                             }
                             newGroup.setText("");
                             errorView.setVisibility(View.VISIBLE);
                             errorView.setText("非法输入");
                         } else {
-                            Log.d(TAG, "合法数据");
+                           // Log.d(TAG, "合法数据");
                             /////////////////////////////////////////////////
                             //在这里后台服务移动好友至目标分组
                             String spinnerItem = betterSpinner.getText().toString();
@@ -503,7 +498,7 @@ public class ContactFragment
                                 result = newGroup.getText().toString();
                             else
                                 result = spinnerItem;
-                            L.i("RESULT", result);
+                         //   L.i("RESULT", result);
                             m_callback.getService().moveRosterItemToGroup(userId,
                                     result);
                             try {
@@ -512,7 +507,7 @@ public class ContactFragment
                                 field.setAccessible(true);
                                 field.set(dialog, true);
                             } catch (Exception e) {
-                                Log.d(TAG, "异常");
+                             //   Log.d(TAG, "异常");
                             }
                         }
                         dialog.dismiss();
@@ -527,7 +522,7 @@ public class ContactFragment
                             field.setAccessible(true);
                             field.set(dialog, true);
                         } catch (Exception e) {
-                            Log.d(TAG, "异常");
+                         //   Log.d(TAG, "异常");
                         }
 
                         dialog.dismiss();

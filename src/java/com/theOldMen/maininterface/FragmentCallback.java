@@ -8,8 +8,5 @@ import com.theOldMen.service.XXService;
 public interface FragmentCallback {
 
     public boolean isConnected();
-
     public XXService getService();
-
-
 }

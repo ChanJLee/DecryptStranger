@@ -154,7 +154,7 @@ public class HowToUseActivity extends Activity {
     }
 
     @SuppressWarnings("deprecated")
-    private void nextMessage(){
+    synchronized private void nextMessage(){
 
         //先把当前的小点点转换为正常颜色
         //后把索引下标指向下一个元素
@@ -162,8 +162,8 @@ public class HowToUseActivity extends Activity {
                 getResources().getDrawable(R.drawable.page_indicator_unfocused)
         );
 
-        if(m_isLeft) --m_index;
-        else ++m_index;
+        if(m_isLeft && m_index != 0) --m_index;
+        else if(!m_isLeft && m_index != m_pointsImageView.length - 1) ++m_index;
 
         //这次你们再说不会用我们的软件我就认为你们有内幕
         //这里我们强制导航  你必须阅读完我们的导航 才能使用我们的软件

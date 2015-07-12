@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -43,8 +44,6 @@ public class TheOldMenPushPhoto extends ActionBarActivity {
     private static final String s_url                      =
 //            "http://192.168.155.1:8084/TheOldMenWeb/UserZoneServlet";
             "http://"+ SmackImpl.TEST_IP + ":8080/UserZoneServlet";
-    public static final String s_userNameTag               = "userNameTag";
-    public static final String s_userIdTag                 = "userIdTag";
     private static final int s_finshCode                   = 1000000;
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private ImageView m_photoPreviewImageView              = null;
@@ -109,7 +108,8 @@ public class TheOldMenPushPhoto extends ActionBarActivity {
         m_fromDiskButtonFloat.setOnClickListener(new View.OnClickListener(){
 
             @Override
-            public void onClick(View v) {getPhotoByDisk();
+            public void onClick(View v) {
+                getPhotoByDisk();
             }
         });
 
@@ -125,7 +125,6 @@ public class TheOldMenPushPhoto extends ActionBarActivity {
     private void getPhotoByTaking(){
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
         startActivityForResult(intent, s_cameraCode);
     }
 
@@ -215,6 +214,17 @@ public class TheOldMenPushPhoto extends ActionBarActivity {
             if (resultCode == RESULT_OK) {
 
                 Bitmap photo = data.getParcelableExtra("data");
+
+                Bitmap tmp = Bitmap.createScaledBitmap(
+                        photo,
+                        m_photoPreviewImageView.getWidth(),
+                        m_photoPreviewImageView.getHeight(),
+                        false
+                );
+                photo.recycle();
+
+                photo = tmp;
+
                 m_photoPreviewImageView.setImageBitmap(photo);
             }
         }
@@ -231,19 +241,24 @@ public class TheOldMenPushPhoto extends ActionBarActivity {
                             getContentResolver(),
                             uri
                     );
+                    Bitmap tmp = Bitmap.createScaledBitmap(
+                            bitmap,
+                            m_photoPreviewImageView.getWidth(),
+                            m_photoPreviewImageView.getHeight(),
+                            false
+                    );
+                    bitmap.recycle();
+
+                    bitmap = tmp;
 
                     //显示图片
                     m_photoPreviewImageView.setImageBitmap(bitmap);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                } catch (Exception e) {}
             }
         }
 
         else super.onActivityResult(requestCode, resultCode, data);
     }
-
 
     /////////////////////////////////////////////////////////////////////////////////////////////
 }
