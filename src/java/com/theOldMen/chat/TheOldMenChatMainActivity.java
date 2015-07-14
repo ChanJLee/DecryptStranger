@@ -41,6 +41,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -68,7 +69,6 @@ import com.theOldMen.util.CommonUtils;
 import com.theOldMen.util.MIMEFileUtil;
 import com.theOldMen.util.SmileUtils;
 import com.theOldMen.widget.ExpandGridView;
-import com.theOldMen.widget.TheOldMenTextEdit;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -88,8 +88,6 @@ import java.util.regex.Pattern;
 @SuppressWarnings("deprecation")
 public class TheOldMenChatMainActivity extends Activity implements IConnectionStatusCallback{
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public static final String s_copyImage              = "TOMCI";
-    public static final int s_copyAndPaste              = 05251;//此区域内的内容待定
     public static final String s_deleteExpression       = "delete_expression";
     public static final int s_baiduMapCode              = 05252;
     private static final String s_imageType             = "image/*";
@@ -111,7 +109,7 @@ public class TheOldMenChatMainActivity extends Activity implements IConnectionSt
     private ImageView m_micImage                        = null;
     private TextView m_recordingHint                    = null;
     private ListView m_listView                         = null;
-    private TheOldMenTextEdit m_editTextContent         = null;
+    private EditText m_editTextContent                  = null;
     private View m_buttonSetModeKeyboard                = null;
     private View m_buttonSetModeVoice                   = null;
     private RelativeLayout m_editTextLayout             = null;
@@ -358,7 +356,7 @@ public class TheOldMenChatMainActivity extends Activity implements IConnectionSt
         m_micImage                      = (ImageView)findViewById(R.id.mic_image);
         m_recordingHint                 = (TextView)findViewById(R.id.recording_hint);
         m_listView                      = (ListView)findViewById(R.id.list);
-        m_editTextContent               = (TheOldMenTextEdit) findViewById(R.id.et_sendmessage);
+        m_editTextContent               = (EditText) findViewById(R.id.et_sendmessage);
         m_buttonSetModeKeyboard         =  findViewById(R.id.m_setModeKeyBoardButton);
         m_editTextLayout                = (RelativeLayout)findViewById(R.id.edittext_layout);
         m_buttonSetModeVoice            =  findViewById(R.id.m_setModeVoiceButton);
@@ -736,19 +734,14 @@ public class TheOldMenChatMainActivity extends Activity implements IConnectionSt
             cursor.moveToPosition(position);
 
             //读取信息
-            int _id = cursor.getInt(cursor
-                    .getColumnIndex(ChatProvider.ChatConstants._ID));
             String message = cursor.getString(cursor
                     .getColumnIndex(ChatProvider.ChatConstants.MESSAGE));
             int come = cursor.getInt(cursor
                     .getColumnIndex(ChatProvider.ChatConstants.DIRECTION));// 消息来自
             boolean from_me = (come == ChatProvider.ChatConstants.OUTGOING);
-            String jid = cursor.getString(cursor
-                    .getColumnIndex(ChatProvider.ChatConstants.JID));
 
             ViewHolder viewHolder = null;
             Message chatMsg = Message.analyseMsgBody(message);
-            //L.i("++++++++++++++++++++chatMsg",chatMsg.toString());
 
             if (convertView == null || convertView.getTag(R.string.app_name + come) == null) {
                 viewHolder = new ViewHolder();
@@ -760,10 +753,12 @@ public class TheOldMenChatMainActivity extends Activity implements IConnectionSt
                     viewHolder.content = (TextView) convertView.findViewById(R.id.r_content);
                     viewHolder.avatar = (CircleImageView) convertView.findViewById(R.id.r_userhead);
                     viewHolder.voice = (ImageView) convertView.findViewById(R.id.m_rightVoiceImageView);
+
                     if(m_myAvatar == null)
                         viewHolder.avatar.setImageResource(R.drawable.avatar);
                     else
                         viewHolder.avatar.setImageBitmap(m_myAvatar);
+
                     viewHolder.content.setTag(chatMsg);
 
                 } else {
@@ -1567,19 +1562,41 @@ public class TheOldMenChatMainActivity extends Activity implements IConnectionSt
 
 
     static public Intent getChatIntent(Context context,String toId,String fromId,String toName,
-                                   String fromName,String toAvatarFileName,String fromAvatarFileName){
-        Intent x = new Intent(context,TheOldMenChatMainActivity.class);
+                                   String fromName,String toAvatarFileName,String fromAvatarFileName) {
+        Intent x = new Intent(context, TheOldMenChatMainActivity.class);
 
         m_toId = toId;
         m_toName = toName;
         m_myId = fromId;
         m_myName = fromName;
-        m_toAvatar = BitmapFactory.decodeFile(toAvatarFileName);
-        m_myAvatar = BitmapFactory.decodeFile(fromAvatarFileName);
-        //***************************************************************************************************************************************
 
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.outHeight = options.outWidth = s_defaultAvatarSize;
+
+  /*      Bitmap bitmap = AvatarManager.getCacheAvatar(toAvatarFileName);
+        m_toAvatar = Bitmap.createScaledBitmap(
+                bitmap,
+                s_defaultAvatarSize,
+                s_defaultAvatarSize,
+                false
+        );
+        bitmap.recycle();
+
+        bitmap = AvatarManager.getCacheAvatar(fromAvatarFileName);
+        m_myAvatar = Bitmap.createScaledBitmap(
+                bitmap,
+                s_defaultAvatarSize,
+                s_defaultAvatarSize,
+                false
+        );
+        bitmap.recycle();*/
+
+        m_toAvatar = BitmapFactory.decodeFile(toAvatarFileName, options);
+        m_myAvatar = BitmapFactory.decodeFile(fromAvatarFileName, options);
         return x;
     }
+
+    private static final short s_defaultAvatarSize = 100;
 
     static public Intent getChatIntent(Context context,String toId) {
         Intent x = new Intent(context, TheOldMenChatMainActivity.class);

@@ -72,34 +72,7 @@ public class MainActivity
 
     private boolean isFirstLogin = true;
 
-    ServiceConnection mServiceConnection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            mXxService = ((XXService.XXBinder) service).getService();
-            mXxService.registerConnectionStatusCallback(MainActivity.this);
-            // 开始连接xmpp服务器
-            if (!mXxService.isAuthenticated()) {
-                String usr = PreferenceUtils.getPrefString(MainActivity.this,
-                        PreferenceConstants.ACCOUNT, "");
-                String password = PreferenceUtils.getPrefString(
-                        MainActivity.this, PreferenceConstants.PASSWORD, "");
-                mXxService.Login(usr, password);
-            }else{
-                if(isConnected() && isFirstLogin) {
-                    mStatusListener.refreshStatus(true);
-                    isFirstLogin = false;
-                }
-            }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mXxService.unRegisterConnectionStatusCallback();
-            mXxService = null;
-        }
-
-    };
+    ServiceConnection mServiceConnection = null;
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
@@ -119,8 +92,35 @@ public class MainActivity
         mAdapterGroup = (toAdapterGroup)mFragment;
         mStatusListener = (statusListener)mFragment;
 
-        if( savedInstanceState == null )
-            changeFragment(mFragment);
+        changeFragment(mFragment);
+        mServiceConnection =  new ServiceConnection() {
+
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                mXxService = ((XXService.XXBinder) service).getService();
+                mXxService.registerConnectionStatusCallback(MainActivity.this);
+                // 开始连接xmpp服务器
+                if (!mXxService.isAuthenticated()) {
+                    String usr = PreferenceUtils.getPrefString(MainActivity.this,
+                            PreferenceConstants.ACCOUNT, "");
+                    String password = PreferenceUtils.getPrefString(
+                            MainActivity.this, PreferenceConstants.PASSWORD, "");
+                    mXxService.Login(usr, password);
+                }else{
+                    if(isConnected() && isFirstLogin) {
+                        mStatusListener.refreshStatus(true);
+                        isFirstLogin = false;
+                    }
+                }
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                mXxService.unRegisterConnectionStatusCallback();
+                mXxService = null;
+            }
+
+        };
      }
 
      /**
@@ -366,6 +366,7 @@ public class MainActivity
 
     //切换相应的Fragment
     private void changeFragment(Fragment targetFragment){
+
         resideMenu.clearIgnoredViewList();//清空resideMenu忽略的视图列表
         // 启动Fragment
         getSupportFragmentManager()

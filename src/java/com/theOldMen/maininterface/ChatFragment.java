@@ -49,6 +49,7 @@ public class ChatFragment extends Fragment {
                     String fromId = MyUtil.splitJidAndServer(PreferenceUtils
                             .getPrefString(getActivity(),
                                     com.theOldMen.tools.PreferenceConstants.ACCOUNT, ""));
+
                     Intent i = TheOldMenChatMainActivity.getChatIntent(getActivity(), jid, fromId, userAlias, fromId,
                             MyUtil.getUserAvatarPath(jid), MyUtil.getUserAvatarPath(fromId));
                     startActivity(i);

@@ -87,5 +87,7 @@ public class MyUtil {
                 userName +"_avatar.jpg";
     }
 
-
+    public static String getUserAvatarKey(String user){
+        return user.split("@")[0];
+    }
 }

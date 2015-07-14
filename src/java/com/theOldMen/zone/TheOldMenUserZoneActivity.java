@@ -382,14 +382,9 @@ public class TheOldMenUserZoneActivity extends ActionBarActivity {
                                 }
                             });
                             dialog.show();
-//                            finish();
-
                         }
-
-
                         @Override
-                        public void onCancelClick() {
-                        }
+                        public void onCancelClick() {}
                     });
                     DialogUtil.setPopupDialog(TheOldMenUserZoneActivity.this, baseLDialog);
                     baseLDialog.show();

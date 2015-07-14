@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.animation.Animation;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import com.theOldMen.startup.HowToUseActivity;
 import com.theOldMen.tools.PreferenceConstants;
 import com.theOldMen.tools.PreferenceUtils;
+
+import java.io.File;
 
 /**
  * Created by 李嘉诚 on 2015/5/18.
@@ -163,6 +166,9 @@ public class TheOldMenOpenDoorSplashActivity extends Activity {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(s_sharePreFlag,"false");
             editor.commit();
+
+            File file = new File(Environment.getExternalStorageDirectory() + "/theOldMen");
+            file.delete();
 
             startMainActivity();
         }

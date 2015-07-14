@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,12 +27,16 @@ public class HowToUseActivity extends Activity {
     private static int s_touchSlop;
 
     private static final String s_messages[] = {
-            "丰富的交互体验 让你体会到前所未有的酸爽",
-            "朋友圈 拉近人们的距离",
-            "摇一摇 结识陌生的你",
-            "不光是聊天哦 趣味更强"
+            "丰富的交互体验\n左滑右滑",
+            "长按您的好友\n选择操作",
+            "不光是聊天哦\n趣味更强",
+            "滑呀滑\n窗口滑动关闭",
+            "缘分墙\n滑开说说加好友",
+            "摇一摇\n结识陌生的你"
     };
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private  Drawable m_images[] = null;
     private final short s_duration = 1000;
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private TextView m_messageTextView;
@@ -82,6 +87,15 @@ public class HowToUseActivity extends Activity {
         for(int i = 0;i < size;++i){
             m_pointsImageView[i] = (ImageView) viewGroup.getChildAt(i);
         }
+
+        m_images = new Drawable[] {
+                getResources().getDrawable(R.drawable.navi1),
+                getResources().getDrawable(R.drawable.navi2),
+                getResources().getDrawable(R.drawable.navi3),
+                getResources().getDrawable(R.drawable.navi4),
+                getResources().getDrawable(R.drawable.navi5),
+                getResources().getDrawable(R.drawable.navi6)
+        };
     }
 
     @Override
@@ -117,7 +131,7 @@ public class HowToUseActivity extends Activity {
     private void startAnimation(final float startX,final float endX){
 
         //判断滑动的操作
-        m_isLeft = (startX > endX);
+        m_isLeft = !(startX > endX);
 
         //如果当前在最后一个元素或者在第一个元素
         // 不合法的动作就会被屏蔽
@@ -173,5 +187,6 @@ public class HowToUseActivity extends Activity {
         m_messageTextView.setText(s_messages[m_index]);
         m_pointsImageView[m_index].setImageDrawable(
                 getResources().getDrawable(R.drawable.page_indicator_focused));
+        m_imageView.setImageDrawable(m_images[m_index]);
     }
 }

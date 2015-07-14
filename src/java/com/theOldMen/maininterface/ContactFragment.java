@@ -72,9 +72,9 @@ public class ContactFragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LinearLayout commentField = ((MainActivity) getActivity()).getCommentField();//获得标题栏区域
-        handleCommentField(commentField);
     }
+
+
 
     //注册adapter
     private void registerAdapter() {
@@ -125,6 +125,10 @@ public class ContactFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        LinearLayout commentField = ((MainActivity) getActivity()).getCommentField();//获得标题栏区域
+        handleCommentField(commentField);
+
         View v = inflater.inflate(R.layout.main_center_layout, container, false);
 
         m_errorNetTip = v.findViewById(R.id.net_status_bar_top);

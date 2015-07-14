@@ -4,8 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.gc.materialdesign.views.ButtonFloat;
 import com.theOldMen.Activity.R;
@@ -28,7 +29,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +53,7 @@ public class TheOldMenPushPhoto extends ActionBarActivity {
     private String      m_userId                           = null;
     private String      m_userName                         = null;
     private EditText    m_msgEditText                      = null;
-    private View        m_processBar                       = null;
+    private ProgressBar m_processBar                       = null;
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static final String s_nameTag    = "name";
@@ -94,7 +94,7 @@ public class TheOldMenPushPhoto extends ActionBarActivity {
         m_fromDiskButtonFloat   = (ButtonFloat)findViewById(R.id.m_getPhotoFromLocButtonFloat);
         m_pushButtonFloat       = (ButtonFloat)findViewById(R.id.m_pushButtonFloat);
         m_msgEditText           = (EditText)findViewById(R.id.m_messageEditText);
-        m_processBar            = findViewById(R.id.m_progressBarCircularIndetermininate);
+        m_processBar            = (ProgressBar) findViewById(R.id.m_progressBarCircularIndetermininate);
 
 
         m_cameraButtonFloat.setOnClickListener(new View.OnClickListener() {
@@ -154,6 +154,9 @@ public class TheOldMenPushPhoto extends ActionBarActivity {
         holder.m_name = m_userName;
         holder.m_text = m_msgEditText.getText().toString();
 
+        m_processBar.setVisibility(View.VISIBLE);
+        m_processBar.setProgress(10);
+
         //链接网络 在另外一个线程
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -162,6 +165,14 @@ public class TheOldMenPushPhoto extends ActionBarActivity {
                 String xml                   = TheOldMenXmlParser.configToXML(holder);
 
                 HttpClient client = new DefaultHttpClient();
+
+                //发送消息到主线程 通知网络访问结束
+                Message msg = m_pushHandler.obtainMessage();
+                msg.what    = s_processCode;
+
+                msg.arg1 = 50;
+
+                m_pushHandler.sendMessage(msg);
 
                 //使用POST作为请求
                 HttpPost post = new HttpPost(s_url);
@@ -176,12 +187,16 @@ public class TheOldMenPushPhoto extends ActionBarActivity {
                     UrlEncodedFormEntity entity = new UrlEncodedFormEntity(args, HTTP.UTF_8);
                     post.setEntity(entity);
 
+                    msg = m_pushHandler.obtainMessage();
+                    msg.what    = s_processCode;
+
+                    msg.arg1 = 80;
+
                     client.execute(post);
                 } catch (Exception e){}
 
-
                 //发送消息到主线程 通知网络访问结束
-                Message msg = m_pushHandler.obtainMessage();
+                msg = m_pushHandler.obtainMessage();
                 msg.what    = s_finshCode;
 
                 m_pushHandler.sendMessage(msg);
@@ -189,9 +204,9 @@ public class TheOldMenPushPhoto extends ActionBarActivity {
         });
 
         thread.start();
-
-        m_processBar.setVisibility(View.VISIBLE);
     }
+
+    private static final short s_processCode = 0x0521;
 
     private Handler m_pushHandler = new Handler() {
 
@@ -201,7 +216,12 @@ public class TheOldMenPushPhoto extends ActionBarActivity {
             if (message.what == s_finshCode) {
                 setResult(RESULT_OK);
                 TheOldMenPushPhoto.this.finish();
-            } else super.handleMessage(message);
+            }
+
+            else if(message.what == s_processCode) {
+                m_processBar.setProgress(message.arg1);
+            }
+            else super.handleMessage(message);
         }
     };
 
@@ -259,6 +279,5 @@ public class TheOldMenPushPhoto extends ActionBarActivity {
 
         else super.onActivityResult(requestCode, resultCode, data);
     }
-
     /////////////////////////////////////////////////////////////////////////////////////////////
 }

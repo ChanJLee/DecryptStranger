@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,10 @@ import com.theOldMen.CircleImage.CircleImageView;
 import com.theOldMen.RosterManagement.Group;
 import com.theOldMen.RosterManagement.User;
 import com.theOldMen.db.RosterProvider;
+import com.theOldMen.pulltorefresh.LoadingLayout;
 import com.theOldMen.tools.PreferenceUtils;
+import com.theOldMen.util.AvatarManager;
+import com.theOldMen.util.MyUtil;
 import com.theOldMen.util.PreferenceConstants;
 import com.theOldMen.util.SystemHandleUtils;
 
@@ -287,11 +291,9 @@ public class ContactAdapter extends BaseExpandableListAdapter {
         }else viewHolder = (ChildViewHolder) convertView.getTag();
 
         //先都使用默认的头像
-        viewHolder.m_headView.setImageBitmap(
-                decodeSampledBitmapFromResource(m_context.getResources(),
-                        R.drawable.avatar,
-                        s_destWidthAndHeight,
-                        s_destWidthAndHeight));
+
+        viewHolder.m_headView.setImageDrawable(
+                m_context.getResources().getDrawable(R.drawable.avatar));
        // viewHolder.m_headView.setImageResource(R.drawable.avatar);
 
         Bitmap bitmap = getBitmapCache(user.getUserId());
@@ -328,9 +330,9 @@ public class ContactAdapter extends BaseExpandableListAdapter {
         //获得图片的绝对地址
         if (SystemHandleUtils.existSDCard()) {
 
-            String mAccount = user.getUserId();
+            String account = user.getUserId();
             String avatarPath = Environment.getExternalStorageDirectory() + "/theOldMen/" +
-                    mAccount.split("@")[0] + "_avatar.jpg";
+                    account.split("@")[0] + "_avatar.jpg";
 
             File avatarFile = new File(avatarPath);
             Bitmap bitmap = null;
@@ -341,7 +343,7 @@ public class ContactAdapter extends BaseExpandableListAdapter {
                 //头像文件是不存在的
                 if (!avatarFile.exists()) {
 
-                    VCard vCard = m_context.getService().getUserVCard(mAccount);
+                    VCard vCard = m_context.getService().getUserVCard(account);
                     byte[] bytes = null;
 
                     if (vCard != null) bytes = vCard.getAvatar();
@@ -372,52 +374,30 @@ public class ContactAdapter extends BaseExpandableListAdapter {
                         bitmap.recycle();
                         bitmap = tmp;
                         viewHolder.m_headView.setImageBitmap(bitmap);
-                        addBitmapCache(mAccount, bitmap);
+
+                        AvatarManager.addCacheAvatar(MyUtil.getUserAvatarKey(account),bytes);
+                        addBitmapCache(account, bitmap);
                     }
                 } else {
+                    bitmap = AvatarManager.getCacheAvatar(MyUtil.getUserAvatarKey(account));
+                    Bitmap tmp = Bitmap.createScaledBitmap(
+                            bitmap,
+                            s_destWidthAndHeight,
+                            s_destWidthAndHeight,
+                            false
+                    );
+                    bitmap.recycle();
+                    bitmap = tmp;
 
-                    BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.outHeight = s_destWidthAndHeight;
-                    options.outWidth = s_destWidthAndHeight;
-                    options.inJustDecodeBounds = false;
-                    bitmap = BitmapFactory.decodeFile(avatarPath,options);
                     viewHolder.m_headView.setImageBitmap(bitmap);
-                    addBitmapCache(mAccount, bitmap);
+                    addBitmapCache(account, bitmap);
                 }
             }
         }
     }
 
-    public static int calculateInSampleSize(BitmapFactory.Options options,
-                                            int reqWidth, int reqHeight) {
-        // 源图片的高度和宽度
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-        if (height > reqHeight || width > reqWidth) {
-            // 计算出实际宽高和目标宽高的比率
-            final int heightRatio = Math.round((float) height / (float) reqHeight);
-            final int widthRatio = Math.round((float) width / (float) reqWidth);
-            // 选择宽和高中最小的比率作为inSampleSize的值，这样可以保证最终图片的宽和高
-            // 一定都会大于等于目标的宽和高。
-            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
-        }
 
-        return inSampleSize;
-    }
 
-    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
-                                                         int reqWidth, int reqHeight) {
-        // 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(res, resId, options);
-        // 调用上面定义的方法计算inSampleSize值
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-        // 使用获取到的inSampleSize值再次解析图片
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeResource(res, resId, options);
-    }
     ////////////////////////////////////////////////////////////////////////////////////////////////
     class GroupViewHolder{
         public TextView m_groupName;
