@@ -3,7 +3,7 @@
 # 描述
  DecryptStranger 是一款基于xmpp http的即时通讯软件
  支持android 4.0+系统
- 
+ 感谢我们的阿真同学  还有伟哥同学  已经那帅气的何以诚
 # 编译环境
   ubuntu 14
 
